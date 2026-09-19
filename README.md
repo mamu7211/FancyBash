@@ -46,18 +46,50 @@ Im [Nerd Fonts Cheat Sheet](https://www.nerdfonts.com/cheat-sheet) lassen sich
 Icons suchen und ihre Zeichen bzw. Unicode-Codes zum Anpassen des Prompts
 nachschlagen, beispielsweise `e0b4`, `f01b`, `f01a` und `ef5b`.
 
-### Prompt laden
+### FancyBash laden
 
 In einem Bash-Terminal:
 
 ```bash
-source /home/martin/Workspace/FancyBash/prompt.bash
+source /home/martin/Workspace/FancyBash/fancybash.bash
 ```
 
 Dieselbe Zeile lädt auch Änderungen in einem bereits geöffneten Terminal neu.
 
 Für eine dauerhafte Aktivierung dieselbe Zeile ans Ende von `~/.bashrc` setzen.
-Die Einrichtung verändert diese Datei nicht automatisch. Zum Entfernen die
-Source-Zeile löschen und ein neues Terminal öffnen.
+Eine bisherige Source-Zeile für `prompt.bash` durch diese Zeile ersetzen.
+Den Pfad bei einem anderen Speicherort anpassen. Zum Entfernen die Source-Zeile
+löschen und ein neues Terminal öffnen. Wer nur den Prompt möchte, kann weiterhin
+`prompt.bash` direkt laden.
 
-Aliase und fzf sind bewusst noch nicht eingerichtet.
+## Gemeinsame History
+
+FancyBash behält bis zu 50.000 Befehle im Speicher und 100.000 Zeilen in der
+History-Datei. Direkt aufeinanderfolgende Duplikate und Befehle mit führendem
+Leerzeichen werden nicht gespeichert. `history` zeigt Datum und Uhrzeit an.
+
+Vor jedem neuen Prompt werden eigene Befehle angehängt (`history -a`) und neue
+Einträge anderer Terminals eingelesen (`history -n`). Alle beteiligten Terminals
+müssen FancyBash laden und dieselbe `HISTFILE` verwenden (normalerweise
+`~/.bash_history`). In einem wartenden Terminal einmal Enter drücken, um neue
+Einträge einzulesen. Auch die Pfeiltasten durchsuchen den gemeinsamen Verlauf.
+
+## History-Suche mit fzf
+
+Unter Ubuntu/Debian zuerst installieren:
+
+```bash
+sudo apt install fzf
+```
+
+Danach FancyBash erneut laden. `Ctrl+R` öffnet die Suche im Verlauf:
+Suchbegriffe eingeben, mit den Pfeiltasten auswählen und mit Enter in die
+Eingabezeile übernehmen. Erst ein weiteres Enter führt den Befehl aus.
+Escape bricht die Suche ab. Die Suche belegt 40 % der Terminalhöhe.
+
+Die Integration verwendet die [offiziellen fzf-Bash-Bindings](https://github.com/junegunn/fzf#setting-up-shell-integration).
+`Ctrl+T` und `Alt+C` werden nicht zusätzlich aktiviert. Eigene
+`FZF_CTRL_R_OPTS` haben Vorrang. Ohne installiertes fzf bleiben Prompt und History
+nutzbar; `Ctrl+R` verwendet dann die normale Bash-Suche.
+
+Zusätzliche Aliase sind noch nicht eingerichtet.
