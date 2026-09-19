@@ -33,6 +33,21 @@ Vorhandene `PROMPT_COMMAND`-Hooks bleiben erhalten.
 
 ## Ausprobieren
 
+### Schriftart und Symbole
+
+Für die runden Trenner und Git-Symbole eine [Nerd Font](https://www.nerdfonts.com/font-downloads)
+installieren und in den Terminal-Einstellungen als Schriftart auswählen.
+Dieser Prompt verwendet **Hurmit Nerd Font**, die um Icons erweiterte Variante
+von **Hermit**. Auf der Download-Seite nach **Hurmit** suchen;
+eine [Vorschau von Hermit](https://www.programmingfonts.org/#hermit) gibt es
+auf Programming Fonts.
+
+Im [Nerd Fonts Cheat Sheet](https://www.nerdfonts.com/cheat-sheet) lassen sich
+Icons suchen und ihre Zeichen bzw. Unicode-Codes zum Anpassen des Prompts
+nachschlagen, beispielsweise `e0b4`, `f01b`, `f01a` und `ef5b`.
+
+### Prompt laden
+
 In einem Bash-Terminal:
 
 ```bash
