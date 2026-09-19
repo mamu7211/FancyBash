@@ -92,4 +92,32 @@ Die Integration verwendet die [offiziellen fzf-Bash-Bindings](https://github.com
 `FZF_CTRL_R_OPTS` haben Vorrang. Ohne installiertes fzf bleiben Prompt und History
 nutzbar; `Ctrl+R` verwendet dann die normale Bash-Suche.
 
+## Besuchte Verzeichnisse mit c
+
+FancyBash merkt sich ab dem Laden die Verzeichnisse, in denen ein Prompt
+angezeigt wird. Das erfasst auch Wechsel mit `cd`, `pushd` und `popd`.
+Zwischenstationen innerhalb eines Befehls wie `cd /tmp; cd /var` werden nicht
+einzeln erfasst. Der erste Prompt erfasst auch das Startverzeichnis.
+
+| Aufruf | Verhalten |
+| --- | --- |
+| `c` | Öffnet die fzf-Auswahl, auch bei nur einem Eintrag |
+| `c fancy` | Ein Treffer: direkt wechseln; mehrere: gefilterte Auswahl |
+| `c workspace fancy` | Suche mit mehreren Begriffen nach den fzf-Suchregeln |
+
+Enter wechselt zum gewählten Verzeichnis. Escape oder Ctrl+C bricht ab, ohne
+zu wechseln. Bei null Treffern erscheint ein Hinweis. Nicht mehr vorhandene
+Verzeichnisse werden ausgeblendet, aber bleiben gespeichert (etwa für momentan
+nicht eingehängte Laufwerke). Zuletzt besuchte Verzeichnisse stehen oben.
+
+Die Liste liegt in `${XDG_DATA_HOME:-$HOME/.local/share}/fancybash/directories`.
+Sie wird zwischen Terminals geteilt, bleibt über Neustarts erhalten und enthält
+jeden Pfad nur einmal. Nullbytes trennen die Einträge, damit auch Leerzeichen
+und Zeilenumbrüche in Namen funktionieren. `flock` schützt parallele Schreibzugriffe;
+die Datei wird atomar ersetzt. Benötigt Bash, fzf und `flock` (unter Ubuntu aus
+`util-linux`). Die Besuchsliste wird nicht ins Git-Repository geschrieben.
+
+Nach einem Update in bereits geöffneten Terminals `fancybash.bash` erneut laden.
+Die normale Bash-History wird nicht als Verzeichnisliste importiert.
+
 Zusätzliche Aliase sind noch nicht eingerichtet.

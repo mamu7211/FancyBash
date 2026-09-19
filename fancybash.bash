@@ -7,6 +7,7 @@ _fancybash_load() {
     source "$directory/history.bash"
     source "$directory/prompt.bash"
     source "$directory/fzf.bash"
+    source "$directory/navigation.bash"
 }
 _fancybash_load
 unset -f _fancybash_load
